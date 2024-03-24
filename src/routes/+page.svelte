@@ -16,9 +16,11 @@
     // Here we make the client itself, combining the service
     // definition with the transport.
     const client = createPromiseClient(ElizaService, transport);
+
+    let inputValue = '';
 </script>
 
 <form>
-    <input />
+    <input bind:value={inputValue}/>
     <button type="submit">Send</button>
 </form>
