@@ -26,6 +26,10 @@
     let messages: Message[] = [];
 </script>
 
+{#each messages as message}
+    <div>{message.fromMe ? 'You: ' : 'Eliza: '}{message.message}</div>
+{/each}
+
 <form on:submit={async (e) => {
     const response = await client.say({sentence: inputValue});
     messages = [
