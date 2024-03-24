@@ -20,7 +20,9 @@
     let inputValue = '';
 </script>
 
-<form>
+<form on:submit={async (e) => {
+    await client.say({sentence: inputValue});
+}}>
     <input bind:value={inputValue}/>
     <button type="submit">Send</button>
 </form>
