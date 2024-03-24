@@ -1,4 +1,4 @@
-<script type="ts">
+<script lang="ts">
     import { createPromiseClient } from "@connectrpc/connect";
     import { createConnectTransport } from "@connectrpc/connect-web";
 
@@ -18,10 +18,22 @@
     const client = createPromiseClient(ElizaService, transport);
 
     let inputValue = '';
+
+    type Message = {
+        fromMe: boolean;
+        message: string;
+    };
+    let messages: Message[] = [];
 </script>
 
 <form on:submit={async (e) => {
-    await client.say({sentence: inputValue});
+    const response = await client.say({sentence: inputValue});
+    messages = [
+        ...messages,
+        {fromMe: true, message: inputValue},
+        {fromMe: false, message: response.sentence},
+    ];
+    inputValue = '';
 }}>
     <input bind:value={inputValue}/>
     <button type="submit">Send</button>
